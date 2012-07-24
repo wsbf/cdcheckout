@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WSBF-FM CD Checkout</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="David A. Cohen II">
+
+    <!-- Le styles -->
+    <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="./bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    
+
+    <div class="container-fluid">
+       <div class="span3">
+        <h1>wsbf cd checkout</h1>
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li><a href="index.html">Home</a></li>
+              <li class="nav-header">Requirement Specification</li>
+              <li><a href="storyboard.html">Storyboard</a></li>
+              <li class="active"><a href="#">Deliverables</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+          <h1>Deliverables</h1>
+          <h3>The four deliverables for this project are proposed as follows:</h3>
+          <dl class="dl-horizontal">
+            <dt>Phase 1</dt>
+            <dd>Here, core functionality is to be implemented and the existing database is to be extended.</dd>
+            <dd>An audit will take place to decide on action to take on the MySQL schema as it relates to storing CD checkout data, and then these modifications will be made.</dd>
+            <dd>Fundamental functionality such as authentication/authorization will be designed and implemented.</dd>
+            <dd>By the end of Phase 1, a command-line interface will be able to list albums categorized as "To Be Reviewed," authenticate users, and check out albums by albumID.</dd>
+
+            <dt>Phase 2</dt>
+            <dd>In this phase, unit tests will be performed to test Phase 1 functionality. </dd>
+            <dd>A GUI similar to that of the storyboard will be started. On the main view, the Library Checkout button and the search bar will be added, but will not work until Phase 3. The list of albums to be reviewed will be implemented, but will not include album art.</dd>
+            <dd>By the end of Phase 2, the program should be GUI-based, and allow users to check out an album by browsing the "To Be Reviewed" list, or by albumID.</dd>
+
+
+            <dt>Phase 3</dt>
+            <dd>In this phase, additional functionality will be added to the application to satisfy more requirements.</dd>
+            <dd>Searching will be implemented such that the album list filters as the user types on the keyboard.</dd>
+            <dd>Library checkout will be implemented (along with its associated view in the GUI).</dd>
+            <dd>If not already implemented, the ability to stay logged in to check out more albums will be added.</dd>
+            <dd>Appropriate test cases will be added and regression testing preformed.</dd>
+
+            <dt>Phase 4</dt>
+            <dd>In this phase, authentication will be extended with a card reader, if possible. The usefulness of all this depends on access to Clemson's database; as of now, we only have a partial list of CUIDs. </dd>
+            <dd>(aside) a non-functional requirement of this is that scanning a card should take less time than entering a username and password. Otherwise, it's not worth implementing, is it?</dd>
+            <dd>Test cases will be added and final testing done.</dd>
+
+        </div>
+    </div> <!-- /container -->
+
+
+  </body>
+</html>
