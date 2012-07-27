@@ -7,6 +7,7 @@ import Tkinter as tk
 import sys, os
 sys.path.insert(0,os.path.join(os.path.dirname(__file__), './includes'))
 import ttk
+import tkMessageBox
 #import sys
 
 
@@ -15,7 +16,6 @@ class MainView(object):
 	def __init__(self, controller):
 		self.controller = controller
 		root = self.root = tk.Tk()
-		root.bind("<Escape>", )
 		root.title("WSBF CD Checkout System")
 
 		####### MAIN LABELS ######
@@ -27,12 +27,16 @@ class MainView(object):
 		self.checkoutlabel.grid(column=0, row=1, sticky='e')
 
 		###### Login Frame ######
-		self.loginFrame = ttk.LabelFrame(root, text="Login")
+		self.loginFrame = ttk.LabelFrame(root, text="Login Credentials")
 		self.loginFrame.grid(column=0, row=0, columnspan=4, sticky='nw')
 		self.loginFrame.username = ttk.Entry()
 		self.loginFrame.username.grid(column=0, row=0, in_=self.loginFrame, sticky='nsew')
+#		self.loginFrame.username.bind("<Button-1>", lambda e: e.widget.textvariable.set(""))
 		self.loginFrame.password = ttk.Entry(show="*")
 		self.loginFrame.password.grid(column=0, row=1, in_=self.loginFrame,sticky='nsew')
+#		self.loginFrame.password.bind("<Button-1>", lambda e: e.widget.config(text=""))
+#		self.loginFrame.button = ttk.Button(text="Login", command=self.controller.login)
+#		self.loginFrame.button.grid(column=0,row=2, in_=self.loginFrame, sticky='ew')
 
 		####### Library / To Be Reviewed Radio Buttons #######
 		self.buttonFrame = buttonFrame = ttk.LabelFrame(root, text="Checking out from:")
@@ -50,7 +54,7 @@ class MainView(object):
 		self.albumListFrame = ttk.LabelFrame(root, text="Albums To Be Reviewed:")
 		self.albumListFrame.grid(column=0, row=3, columnspan=6, sticky='nsew', in_=root)
 		self.albumSearchbar = ttk.Entry()
-		self.albumSearchbar.grid(column=0, columnspan=2, row=0, sticky='e', in_=self.albumListFrame)
+		self.albumSearchbar.grid(column=0, columnspan=2, row=0, sticky='w', in_=self.albumListFrame)
 		self.albumList = ttk.Treeview()
 		vsb = ttk.Scrollbar(orient="vertical", command=self.albumList.yview)
 		self.albumList.configure(yscrollcommand=vsb.set)
@@ -59,7 +63,21 @@ class MainView(object):
 		self.albumListFrame.grid_columnconfigure(0, weight=1)
 		self.albumListFrame.grid_rowconfigure(0, weight=1)
 		
-		#http://coverage.livinglogic.de/Demo/tkinter/ttk/treeview_multicolumn.py.html
+		#http://coverage.livinglogic.de/Demo/tkinter/ttk/treeview_multicolumn.py.html'
+
+		###### Check Out Button ######
+		def tryCheckout():
+			if self.albumList.selection() == "":
+				tkMessageBox.showerror("What album?", "Select an album to check out.")
+			elif tkMessageBox.askyesno("Sure?", "Are you sure you want to check out this album?"):
+				try:
+					self.controller.checkoutAlbum(self.albumList.selection())
+				except Exception, e:
+					tkMessageBox.showerror("Failure.", e)
+				else:
+					tkMessageBox.showinfo("Success!", "Album Successfully Checked Out!")
+		self.checkOutButton = ttk.Button(text="Check Out Selected Album!", command=tryCheckout)
+		self.checkOutButton.grid(column=0, columnspan=2, row=2, in_=self.root, sticky='ew')
 
 	def initialize(self):
 		self.root.mainloop()

@@ -12,11 +12,11 @@ class User(db.DatabaseModel):
 	def login(self, username, password):
 		self._passwordMD5 = hashlib.md5(password).hexdigest()
 		self.cursor.execute("""SELECT password, preferred_name FROM users
-			WHERE username = %s LIMIT 1""", (username,))		
+			WHERE username LIKE %s LIMIT 1""", (username,))		
 		userEntry = self.cursor.fetchone()
 
 		if not userEntry:
-			raise Exception("User not found.")
+			raise Exception("User " +username+" not found.")
 		salt = userEntry[0][:64]
 		answer = userEntry[0][64:]
 		if hashlib.sha512( salt + self._passwordMD5).hexdigest() != answer:
