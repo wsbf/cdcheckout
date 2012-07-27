@@ -6,6 +6,6 @@ class DatabaseModel(object):
 	def __init__(self):
 		if not DatabaseModel.conn:
 			DatabaseModel.conn = MySQLdb.connect(host="new.wsbf.net", \
-				user="cdcheckout", passwd="Jtj5MABzJcm2vtuh", db="wsbf")
+				user="cdcheckout", passwd="Jtj5MABzJcm2vtuh", db="wsbf", charset="utf8", use_unicode=True)
 			DatabaseModel.conn.autocommit(True)
-		self.cursor = DatabaseModel.conn.cursor()
+		self.cursor = DatabaseModel.conn.cursor()#MySQLdb.cursors.DictCursor)

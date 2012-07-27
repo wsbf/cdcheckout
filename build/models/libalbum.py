@@ -27,9 +27,11 @@ class LibalbumModel(db.DatabaseModel):
 		return result
 	
 	def searchByAlbumName(self, album_name):
+		words = album_name.split()
+		wildcardWords = "%" + "%".join(words) + "%"
 		self.cursor.execute("""SELECT * FROM `libalbum`, `libartist`
 			WHERE libalbum.artistID = libartist.artistID
-			AND libalbum.album_name LIKE %s""", (wildcardWords,artist_name,\
+			AND libalbum.album_name LIKE %s""", (wildcardWords,album_name,\
 			wildcardWords))
 		result = self.cursor.fetchall()
 		return result

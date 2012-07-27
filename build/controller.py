@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 
-import view
+
 import sys, os
-sys.path.insert(0,os.path.join(os.path.dirname(__file__), './models'))
+
 sys.path.insert(0,os.path.join(os.path.dirname(__file__), './includes'))
-import libalbum
+import views.mainView
+import models.libalbum
 
 class Controller(object):
 	def __init__(self):
-		self.libalbum = libalbum.LibalbumModel()
-		self.view = view.MainView()
+		self.libalbum = models.libalbum.LibalbumModel()
+		self.view = views.mainView.MainView(self)
 		self.updateAlbumView()
 		self.view.initialize()
 
