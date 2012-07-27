@@ -2,3 +2,15 @@ WSBF-FM Clemson CD Checkout
 This software was designed as a project for CpSc 372 by David A. Cohen II.
 It is intended for use by WSBF-FM for DJs to check out albums for review and
 from the library. 
+
+Requirements:
+- MySQLdb (python module)
+- Tkinter
+- ttk
+
+Credentials for testing:
+Username: _TestUser
+Password: password
+
+To run:
+python ./build/controller.py
