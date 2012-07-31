@@ -1,6 +1,9 @@
 import db
 
 class LibalbumModel(db.DatabaseModel):
+	''' Represents the table `libalbum`, which lists all albums with information
+	about current rotation category, etc. ''' 
+	
 	def searchByRotation(self, rotationID):
 		self.cursor.execute("""SELECT *
 			FROM  `libalbum` ,  `libartist` 
@@ -35,6 +38,19 @@ class LibalbumModel(db.DatabaseModel):
 			wildcardWords))
 		result = self.cursor.fetchall()
 		return result
+	
+	def listAvailableToBeReviewed(self):
+		''' Lists all albums marked as To Be Reviewed that are
+			not already checked out'''
+		self.cursor.execute("""
+			SELECT libalbum.albumID, libalbum.album_name, libartist.artist_name
+			FROM  `libalbum` ,  `libartist`
+			WHERE libalbum.albumID NOT IN (SELECT albumID FROM check_out)
+			AND libalbum.artistID = libartist.artistID 
+			ORDER BY albumID DESC""")
+		result = self.cursor.fetchall()
+		return result
+	
 	
 #	def search(self, searchString):
 #		searchByArtist(searchString)

@@ -1,7 +1,8 @@
 import db
 
 class ReviewCheckoutModel(db.DatabaseModel):
-	def checkOut(self, albumID, username):
+	def checkout(self, albumID, username):
+		print "ReviewCheckoutModel::checkout"
 		self.cursor.execute("""INSERT INTO `check_out` (albumID, username)
 		VALUES(%s, %s)""", (albumID, username))
 	
