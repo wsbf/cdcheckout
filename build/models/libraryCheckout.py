@@ -2,10 +2,10 @@ import db
 import user
 
 class LibraryCheckoutModel(db.DatabaseModel):
-	def checkOut(self, user, albumName, artistName, mediumID):
+	def checkout(self, username, albumName, artistName, mediumID):
 		self.cursor.execute("""INSERT INTO `check_out_library` (username, 
 		album_name, artist_name, mediumID) VALUES (%s, %s, %s, %s)""",
-		(user.username, albumName, artistName, mediumID))
+		(username, albumName, artistName, mediumID))
 		
 	def listOutstanding(self, username):
 		self.cursor.execute("""SELECT * FROM `check_out_library` WHERE username
