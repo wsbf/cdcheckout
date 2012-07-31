@@ -13,11 +13,7 @@ class ReviewFrame(ttk.Frame):
 	def __init__(self, *args, **kw):
 		ttk.Frame.__init__(self, *args, **kw)
 		self.controller = controllers.reviewController.ReviewController(self)
-		# Construct parent (frame)
-		# Set everything apart in a LabelFrame
-#		frame = self.LabelFrame = ttk.LabelFrame(self, text="Albums To Be Reviewed:")
-#		frame.grid(column=0, row=0, sticky='nsew')
-		
+
 		# album search bar
 		self.albumSearchbar = ttk.Entry()
 		self.albumSearchbar.insert(0, "Search for an album...")
@@ -39,15 +35,19 @@ class ReviewFrame(ttk.Frame):
 		self.grid_columnconfigure(0, weight=1)
 		self.grid_rowconfigure(0, weight=1)
 
+		self.controller.update()
+
 	def getSelectedAlbum(self):	
 		return(self.albumList.item(self.albumList.selection(), 'values'))
 		
 	def removeSelectedAlbum(self):
 		self.albumList.delete(self.albumList.selection())
 	
-	############################################################################
+	################################################################
 	######### Search / Filter functionality ########################
 	def filterResults(self):
+		'''Called whenever a character is entered into albumSearchbar. Removes
+		anything that doesn't match'''
 		print "ReviewFrame :: filterResults"
 		searchString = self.albumSearchbar.get()
 		for item in self.albumList.get_children():
@@ -55,8 +55,9 @@ class ReviewFrame(ttk.Frame):
 			if not (re.search(searchString, vals[0], re.IGNORECASE) or re.search(searchString, vals[1],re.IGNORECASE) or re.search(searchString, vals[2], re.IGNORECASE)):
 				self.removedResults.append((item, self.albumList.parent(item), self.albumList.index(item)))
 				self.albumList.detach(item)
-	
+
 	def unFilterResults(self):
+		'''Called when backspace is pressed. Adds back entries that match again'''
 		print "ReviewFrame :: unFilterResults"
 		searchString = self.albumSearchbar.get()
 		for entry in reversed(self.removedResults):

@@ -1,8 +1,3 @@
-"""
-David Cohen
-This is the main view of the CD Checkout module. 
-"""
-
 import Tkinter as tk
 import sys, os
 sys.path.insert(0,os.path.join(os.path.dirname(__file__), '../includes'))
@@ -13,7 +8,10 @@ import tkMessageBox
 import reviewFrame, libraryFrame
 
 class MainView(object):
-
+	"""
+	David Cohen
+	This is the main view of the CD Checkout module. 
+	"""
 	def __init__(self, controller):
 		self.controller = controller
 		root = self.root = tk.Tk()
