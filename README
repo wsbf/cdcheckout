@@ -1,16 +1,55 @@
-WSBF-FM Clemson CD Checkout
+ _       __ _____  ____   ______                                         
+| |     / // ___/ / __ ) / ____/                                         
+| | /| / / \__ \ / __  |/ /_                                             
+| |/ |/ / ___/ // /_/ // __/                                             
+|__/|__/ /____//_____//_/                                                
+   ______ ____     ______ __  __ ______ ______ __ __ ____   __  __ ______
+  / ____// __ \   / ____// / / // ____// ____// //_// __ \ / / / //_  __/
+ / /    / / / /  / /    / /_/ // __/  / /    / ,<  / / / // / / /  / /   
+/ /___ / /_/ /  / /___ / __  // /___ / /___ / /| |/ /_/ // /_/ /  / /    
+\____//_____/   \____//_/ /_//_____/ \____//_/ |_|\____/ \____/  /_/     
+                                                                                                                                                           
+David A. Cohen II
+CpSc 372 - Clemson University
+Instructor: Dr. Brian Malloy
+Summer II 2012
+
 This software was designed as a project for CpSc 372 by David A. Cohen II.
 It is intended for use by WSBF-FM for DJs to check out albums for review and
 from the library. 
 
-Requirements:
+############    Requirements:    ############
+- Python 2 (Written and tested using 2.6.5 and 2.7.3)
 - MySQLdb (python module)
 - Tkinter
-- ttk
+- ttk (included in this package)
 
-Credentials for testing:
+############    Credentials for testing:     ############
 Username: _TestUser
 Password: password
 
-To run:
-python ./build/controller.py
+############    Usage    ############
+This application can be run from the build directory in two possible ways:
+[1] Use the following commmand for each launch:
+$	python ./main.py 
+
+or, [2] Run the following command before the first run:
+$	chmod +x main.py
+and then you may use the following command to launch:
+$   ./main.py
+
+###########   Other Comments   ###########
+This application uses a modified form of the Model-View-Controller architecture.
+main.py instantiates the main controller, which creates the main view. 
+The main view instantiates the two frames of the notebook (review/library check-
+out), and the controllers are instantiated from these views. This was done 
+intentionally for several reasons, one of which is that these views inherit from
+tk.Frame, so instantiating these from the main controller would cause coupling.
+
+###########   Credits   ############
+- A good bit of the TreeView Code was taken from the example python-ttk code
+	[http://code.google.com/p/python-ttk/]
+- Refrences and Documentation for Tkinter/ttk:
+    + TkDocs [http://www.tkdocs.com/]r
+    + New Mexico Tech [http://infohost.nmt.edu/tcc/help/pubs/tkinter/index.html]
+    + Python [http://www.python.org/doc/]
