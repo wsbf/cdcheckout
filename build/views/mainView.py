@@ -4,7 +4,7 @@ sys.path.insert(0,os.path.join(os.path.dirname(__file__), '../includes'))
 sys.path.insert(0,os.path.join(os.path.dirname(__file__), '../controllers'))
 import ttk
 import tkMessageBox
-
+import tkFont
 import reviewFrame, libraryFrame
 
 class MainView(object):
@@ -18,12 +18,20 @@ class MainView(object):
 		root.title("WSBF CD Checkout System")
 
 		####### MAIN LABELS ######
+		labelFont = tkFont.Font(family='Helvetica', size='24', weight='bold')
 		self.labelFrame = tk.Frame(root)
-		self.labelFrame.grid(column=4, row=0, sticky='nsew')
-		self.wsbflabel = tk.Label(self.labelFrame, text="wsbf-fm")
-		self.wsbflabel.grid(column=0, row=0, sticky='e')
-		self.checkoutlabel = tk.Label(self.labelFrame, text="cd checkout")
-		self.checkoutlabel.grid(column=0, row=1, sticky='e')
+		self.labelFrame.grid(column=4, row=0, sticky='nsew',in_=root)
+		wsbflabel = ttk.Label(self.labelFrame, text="wsbf-fm", font=labelFont)
+		wsbflabel.grid(column=0, row=0, sticky='se',in_=self.labelFrame)
+		checkoutlabel = ttk.Label(self.labelFrame, text="cd checkout", font=labelFont)
+		checkoutlabel.grid(column=0, row=1, sticky='ne',in_=self.labelFrame)
+
+		self.ladypi = tk.PhotoImage(file="includes/img/wsbflady.gif")
+		ladyLabel = tk.Label(self.labelFrame, image=self.ladypi, width=250, height=250)
+		ladyLabel.image = self.ladypi
+		ladyLabel.grid(column=1, row=0, rowspan=2, sticky='nsew', in_=self.labelFrame)
+
+
 
 		###### Login Frame ######
 		self.loginFrame = ttk.LabelFrame(root, text="Login Credentials")
