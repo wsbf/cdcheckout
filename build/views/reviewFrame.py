@@ -3,6 +3,7 @@ import Tkinter as tk
 import tkMessageBox
 import re
 import controllers.reviewController
+import time, datetime
 
 class ReviewFrame(ttk.Frame):
 	"""
@@ -15,7 +16,7 @@ class ReviewFrame(ttk.Frame):
 		self.controller = controllers.reviewController.ReviewController(self)
 
 		# album search bar
-		self.albumSearchbar = ttk.Entry()
+		self.albumSearchbar = ttk.Entry(self, width=50)
 		self.albumSearchbar.insert(0, "Search for an album...")
 		self.albumSearchbar.bind("<FocusIn>", lambda e: e.widget.delete(0,'end'))
 		self.albumSearchbar.bind("<KeyRelease>", lambda e: self.filterResults())
@@ -25,7 +26,7 @@ class ReviewFrame(ttk.Frame):
 		self.removedResults = []
 		
 		# album list is a Treeview (excellent for tabulated data)
-		self.albumList = ttk.Treeview()
+		self.albumList = ttk.Treeview(self, height=20)
 		# scrollbar for TreeView	
 		vsb = ttk.Scrollbar(orient="vertical", command=self.albumList.yview)
 		self.albumList.configure(yscrollcommand=vsb.set)
@@ -36,7 +37,7 @@ class ReviewFrame(ttk.Frame):
 		self.grid_rowconfigure(0, weight=1)
 
 		self.controller.update()
-
+		
 	def getSelectedAlbum(self):	
 		return(self.albumList.item(self.albumList.selection(), 'values'))
 		
@@ -75,7 +76,7 @@ class ReviewFrame(ttk.Frame):
 			self.albumList.heading(col, text=col.title(),
 				command=lambda c=col: self.sortby(c, 0))
 			self.albumList.column(col, width=400)
-		self.albumList.column(columns[0], width=60)
+		self.albumList.column("AlbumID", width=60)
 		for item in entries:
 			print "Inserting item:", item
 			self.albumList.insert('', 'end', values=item)
@@ -86,7 +87,10 @@ class ReviewFrame(ttk.Frame):
 		return tkMessageBox.askyesno("Sure?", "Are you sure you want to check out this album?")
 	
 	def displayCheckoutSuccess(self, album):
-		tkMessageBox.showinfo("Success!", "Successfully checked out \""+album[1]+"\" by "+album[2])
+		today = datetime.date.today()
+		duedate = today + datetime.timedelta(weeks=1)
+		due = duedate.strftime("%m/%d/%Y").lstrip("0")
+		tkMessageBox.showinfo("Success!", "Checked out \""+album[1]+"\" by "+album[2]+"\nDUE: "+ due)
 		
 			
 	def sortby(self, col, descending):

@@ -17,12 +17,17 @@ class MainController(object):
 		self.user = models.user.User()
 		self.user.login(str(self.view.loginFrame.username.get()), str(self.view.loginFrame.password.get()))
 
+	def logout(self):
+		self.user = None
+		self.view.resetUser()
+
 	def checkout(self, checkoutController):
 		print "MainController::checkout"
 		self.login()
 		print "User has logged in:", self.user.username
 		# call the checkout function in its controller (whichever it may be)
 		checkoutController.checkout(self.user.username)
+
 
 if __name__ == "__main__":
 	c = Controller()
